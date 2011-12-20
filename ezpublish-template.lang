@@ -30,17 +30,127 @@
 		
 	<styles>
 		<style id="comment" _name="Comment" map-to="def:comment"/>
+		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
 	</styles>
 		
 	<definitions>
+
+		<context id="comment" style-ref="comment">
+				<start>{\*</start>
+				<end>\*}</end>
+		</context>
+
+		<context id="controls" style-ref="keyword">
+
+			<!-- Conditional control -->
+			<keyword>if</keyword>
+			<keyword>switch</keyword>
+
+			<!-- Looping -->
+			<keyword>do</keyword>
+			<keyword>for</keyword>
+			<keyword>foreach</keyword>
+			<keyword>while</keyword>
+
+		</context>
+
+		<context id="functions" style-ref="keyword">
+
+			<!-- Debugging -->
+			<keyword>debug-accumulator</keyword>
+			<keyword>debug-log</keyword>
+			<keyword>debug-timing-point</keyword>
+			<keyword>debug-trace</keyword>
+
+			<!-- Miscellaneous -->
+			<keyword>cache-block</keyword>
+			<keyword>fetch_alias</keyword>
+			<keyword>include</keyword>
+			<keyword>ldelim</keyword>
+			<keyword>literal</keyword>
+			<keyword>rdelim</keyword>
+			<keyword>run-once</keyword>
+
+			<!-- Variables -->
+			<keyword>append-block</keyword>
+			<keyword>def</keyword>
+			<keyword>default</keyword>
+			<keyword>let</keyword>
+			<keyword>sequence</keyword>
+			<keyword>set</keyword>
+			<keyword>set-block</keyword>
+			<keyword>undef</keyword>
+
+		</context>
+
+
+		<context id="operators" style-ref="keyword">
+
+			<!-- Array -->
+			<keyword>append</keyword>
+			<keyword>array</keyword>
+			<keyword>array_sum</keyword>
+			<keyword>begins_with</keyword>
+			<keyword>compare</keyword>
+			<keyword>contains</keyword>
+			<keyword>ends_with</keyword>
+			<keyword>explode</keyword>
+			<keyword>extract</keyword>
+			<keyword>extract_left</keyword>
+			<keyword>extract_right</keyword>
+			<keyword>hash</keyword>
+			<keyword>implode</keyword>
+			<keyword>insert</keyword>
+			<keyword>merge</keyword>
+			<keyword>prepend</keyword>
+			<keyword>remove</keyword>
+			<keyword>repeat</keyword>
+			<keyword>replac</keyword>
+			<keyword>reverse</keyword>
+			<keyword>unique</keyword>
+
+			<!-- Data and information extraction -->
+			<keyword>currentdate</keyword>
+			<keyword>ezhttp</keyword>
+			<keyword>ezhttp_hasvariable</keyword>
+			<keyword>ezini</keyword>
+			<keyword>ezini_hasvariable</keyword>
+			<keyword>ezmodule</keyword>
+			<keyword>ezpreference</keyword>
+			<keyword>ezsys</keyword>
+			<keyword>fetch</keyword>
+			<keyword>module_params</keyword>
+
+			<!-- Formatting and internationalization -->
+			<keyword>d18n</keyword>
+			<keyword>datetime</keyword>
+			<keyword>i18n</keyword>
+			<keyword>l10n</keyword>
+			<keyword>si</keyword>
+
+			<!-- Images -->
+			<keyword>image</keyword>
+			<keyword>imagefile</keyword>
+			<keyword>texttoimage</keyword>
+
+		</context>
+
+		<context id="block">
+			<start>{</start>
+			<end>}</end>
+			<include>
+				<context ref="controls" />
+				<context ref="functions" />
+				<context ref="operators" />
+			</include>
+		</context>
+
 		<context id="etl">
 			<include>
-				<context id="comment" style-ref="comment">
-						<start>\/\/</start>
-						<end>$</end>
-				</context>
+				<context ref="comment" />
+				<context ref="block" />
+				<context ref="html:html" />
 			</include>
 		</context>
 	</definitions>
-	
 </language>

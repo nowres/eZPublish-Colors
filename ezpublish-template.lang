@@ -31,19 +31,48 @@
 	<styles>
 		<style id="comment" _name="Comment" map-to="def:comment"/>
 		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
+		<style id="variable" _name="Variable" map-to="def:identifier"/>
+		<style id="string" _name="String" map-to="def:string"/>
 	</styles>
 		
 	<definitions>
+
 
 		<context id="comment" style-ref="comment">
 				<start>{\*</start>
 				<end>\*}</end>
 		</context>
 
+
+		<context id="variables" style-ref="variable">
+			<match>(\$[a-zA-Z_][a-zA-Z0-9_\.]*)</match>
+		</context>
+
+
+		<context id="strings">
+			<include>
+				<context id="double-quoted-string" style-ref="string">
+					<start>"</start>
+					<end>"</end>
+					<include>
+						<context ref="variables" />
+					</include>
+				</context>
+		
+				<context id="single-quoted-string" style-ref="string">
+					<start>'</start>
+					<end>'</end>
+				</context>
+			</include>
+		</context>
+
+
 		<context id="controls" style-ref="keyword">
 
 			<!-- Conditional control -->
 			<keyword>if</keyword>
+			<keyword>else</keyword>
+			<keyword>elseif</keyword>
 			<keyword>switch</keyword>
 
 			<!-- Looping -->
@@ -80,6 +109,8 @@
 			<keyword>set</keyword>
 			<keyword>set-block</keyword>
 			<keyword>undef</keyword>
+
+			<keyword>section</keyword>
 
 		</context>
 
@@ -133,17 +164,139 @@
 			<keyword>imagefile</keyword>
 			<keyword>texttoimage</keyword>
 
+			<!-- Logical operations -->
+			<keyword>and</keyword>
+			<keyword>choose</keyword>
+			<keyword>cond</keyword>
+			<keyword>eq</keyword>
+			<keyword>false</keyword>
+			<keyword>first_set</keyword>
+			<keyword>ge</keyword>
+			<keyword>gt</keyword>
+			<keyword>le</keyword>
+			<keyword>lt</keyword>
+			<keyword>ne</keyword>
+			<keyword>not</keyword>
+			<keyword>null</keyword>
+			<keyword>or</keyword>
+			<keyword>true</keyword>
+
+			<!-- Mathematics -->
+			<keyword>abs</keyword>
+			<keyword>ceil</keyword>
+			<keyword>dec</keyword>
+			<keyword>div</keyword>
+			<keyword>floor</keyword>
+			<keyword>inc</keyword>
+			<keyword>max</keyword>
+			<keyword>min</keyword>
+			<keyword>mod</keyword>
+			<keyword>mul</keyword>
+			<keyword>rand</keyword>
+			<keyword>round</keyword>
+			<keyword>sub</keyword>
+			<keyword>sum</keyword>
+
+			<!-- Miscellaneous -->
+			<keyword>action_icon</keyword>
+			<keyword>attribute</keyword>
+			<keyword>classgroup_icon</keyword>
+			<keyword>class_icon</keyword>
+			<keyword>content_structure_tree</keyword>
+			<keyword>ezpackage</keyword>
+			<keyword>flag_icon</keyword>
+			<keyword>gettime</keyword>
+			<keyword>icon_info</keyword>
+			<keyword>makedate</keyword>
+			<keyword>maketime</keyword>
+			<keyword>mimetype_icon</keyword>
+			<keyword>month_overview</keyword>
+			<keyword>pdf</keyword>
+			<keyword>roman</keyword>
+			<keyword>topmenu</keyword>
+			<keyword>treemenu</keyword>
+
+			<!-- Strings -->
+			<keyword>append</keyword>
+			<keyword>autolink</keyword>
+			<keyword>begins_with</keyword>
+			<keyword>break</keyword>
+			<keyword>chr</keyword>
+			<keyword>compare</keyword>
+			<keyword>concat</keyword>
+			<keyword>contains</keyword>
+			<keyword>count_chars</keyword>
+			<keyword>count_words</keyword>
+			<keyword>crc32</keyword>
+			<keyword>downcase</keyword>
+			<keyword>ends_with</keyword>
+			<keyword>explode</keyword>
+			<keyword>extract</keyword>
+			<keyword>extract</keyword>
+			<keyword>extract_right</keyword>
+			<keyword>indent</keyword>
+			<keyword>insert</keyword>
+			<keyword>md5</keyword>
+			<keyword>nl2br</keyword>
+			<keyword>ord</keyword>
+			<keyword>pad</keyword>
+			<keyword>prepend</keyword>
+			<keyword>remove</keyword>
+			<keyword>repeat</keyword>
+			<keyword>replace</keyword>
+			<keyword>reverse</keyword>
+			<keyword>rot13</keyword>
+			<keyword>shorten</keyword>
+			<keyword>simpletags</keyword>
+			<keyword>simplify</keyword>
+			<keyword>trim</keyword>
+			<keyword>upcase</keyword>
+			<keyword>upfirst</keyword>
+			<keyword>upword</keyword>
+			<keyword>wash</keyword>
+			<keyword>wordtoimage</keyword>
+			<keyword>wrap</keyword>
+
+			<!-- URLs -->
+			<keyword>exturl</keyword>
+			<keyword>ezdesign</keyword>
+			<keyword>ezimage</keyword>
+			<keyword>ezroot</keyword>
+			<keyword>ezurl</keyword>
+			<keyword>Variable</keyword>
+			<keyword>Operator	Summary</keyword>
+			<keyword>count</keyword>
+			<keyword>float</keyword>
+			<keyword>get_class</keyword>
+			<keyword>get_type</keyword>
+			<keyword>int</keyword>
+			<keyword>is_array</keyword>
+			<keyword>is_boolean</keyword>
+			<keyword>is_class</keyword>
+			<keyword>is_float</keyword>
+			<keyword>is_integer</keyword>
+			<keyword>is_null</keyword>
+			<keyword>is_numeric</keyword>
+			<keyword>is_object</keyword>
+			<keyword>is_set</keyword>
+			<keyword>is_string</keyword>
+			<keyword>is_unset</keyword>
+
 		</context>
+
 
 		<context id="block">
 			<start>{</start>
 			<end>}</end>
 			<include>
+				<context ref="variables" />
+				<context ref="strings" />
 				<context ref="controls" />
 				<context ref="functions" />
 				<context ref="operators" />
 			</include>
 		</context>
+
 
 		<context id="etl">
 			<include>

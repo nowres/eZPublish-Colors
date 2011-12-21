@@ -33,10 +33,15 @@
 		<style id="keyword" _name="Keyword" map-to="def:keyword"/>
 		<style id="variable" _name="Variable" map-to="def:identifier"/>
 		<style id="string" _name="String" map-to="def:string"/>
+		<style id="error" _name="Error" map-to="def:error"/>
 	</styles>
 		
 	<definitions>
 
+		<context id="error-block" style-ref="error">
+			<start>{ </start>
+			<end>}</end>
+		</context>
 
 		<context id="comment" style-ref="comment">
 				<start>{\*</start>
@@ -74,6 +79,7 @@
 			<keyword>else</keyword>
 			<keyword>elseif</keyword>
 			<keyword>switch</keyword>
+			<keyword>case</keyword>
 
 			<!-- Looping -->
 			<keyword>do</keyword>
@@ -110,7 +116,25 @@
 			<keyword>set-block</keyword>
 			<keyword>undef</keyword>
 
-			<keyword>section</keyword>
+			<!-- Visualization -->
+			<keyword>attribute_edit_gui</keyword>
+			<keyword>attribute_pdf_gui</keyword>
+			<keyword>attribute_result_gui</keyword>
+			<keyword>attribute_view_gui</keyword>
+			<keyword>class_attribute_edit_gui</keyword>
+			<keyword>class_attribute_view_gui</keyword>
+			<keyword>collaboration_icon</keyword>
+			<keyword>collaboration_participation_view</keyword>
+			<keyword>collaboration_simple_message_view</keyword>
+			<keyword>collaboration_view_gui</keyword>
+			<keyword>content_pdf_gui</keyword>
+			<keyword>content_version_view_gui</keyword>
+			<keyword>content_view_gui</keyword>
+			<keyword>event_edit_gui</keyword>
+			<keyword>node_view_gui</keyword>
+			<keyword>related_view_gui</keyword>
+			<keyword>shop_account_view_gui</keyword>
+			<keyword>tool_bar</keyword>
 
 		</context>
 
@@ -300,6 +324,7 @@
 
 		<context id="etl">
 			<include>
+				<context ref="error-block" />
 				<context ref="comment" />
 				<context ref="block" />
 				<context ref="html:html" />
